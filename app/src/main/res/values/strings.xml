@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Recent Eos Blocks</string>
+    <string name="go_to_list">Go to block list</string>
 </resources>
