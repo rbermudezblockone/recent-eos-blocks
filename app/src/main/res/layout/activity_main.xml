@@ -16,7 +16,7 @@
         tools:context=".ui.home.MainActivity">
 
         <Button
-            android:onClick="@{homeviewmodel::goToListClick}"
+            android:onClick="@{homeviewmodel::goToList}"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"

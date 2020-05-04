@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import one.block.recenteosblocks.R
@@ -12,7 +13,7 @@ import one.block.recenteosblocks.databinding.ActivityMainBinding
 import one.block.recenteosblocks.ui.list.ListActivity
 import one.block.recenteosblocks.util.toast
 
-class MainActivity : AppCompatActivity(), OnButtonClickListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +21,13 @@ class MainActivity : AppCompatActivity(), OnButtonClickListener {
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val viewModel = ViewModelProvider(this@MainActivity).get(HomeViewModel::class.java)
         binding.homeviewmodel = viewModel
-        viewModel.buttonClickListener = this
-    }
+        binding.lifecycleOwner = this
 
-    override fun onClick() {
-        goToListActivity()
-        toast("Button pressed...")
+        viewModel.goToListEvent.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                goToListActivity()
+            }
+        })
     }
 
     private fun goToListActivity() {

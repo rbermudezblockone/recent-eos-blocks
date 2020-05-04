@@ -1,5 +1,7 @@
 package one.block.recenteosblocks.data.network
 
+import android.util.Log
+import org.json.JSONException
 import retrofit2.Response
 import java.io.IOException
 
@@ -10,6 +12,7 @@ abstract class SafeApiRequest {
         if (response.isSuccessful) {
             return response.body()!!
         } else {
+            Log.d("retro", response.errorBody()!!.string())
             throw ApiException(response.code().toString())
         }
     }

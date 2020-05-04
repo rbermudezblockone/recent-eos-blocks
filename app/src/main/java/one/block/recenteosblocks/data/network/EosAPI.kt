@@ -1,24 +1,22 @@
 package one.block.recenteosblocks.data.network
 
+import com.google.gson.JsonObject
 import one.block.recenteosblocks.data.db.entities.Block
 import one.block.recenteosblocks.data.db.entities.BlockchainInfo
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface EosAPI {
 
     @GET("get_info")
     suspend fun getBlockchainInfo() : Response<BlockchainInfo>
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("get_block")
-    fun getBlockDetail(
-        @Field("block_num_or_id") blockNumber: Int
+    suspend fun getBlock(
+        @Body body: JsonObject
     ) : Response<Block>
 
     companion object {
